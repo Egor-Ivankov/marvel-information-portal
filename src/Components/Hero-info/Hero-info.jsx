@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 import HeroSceleton from '../Hero-skeleton/Hero-sceleton';
-import '../sass/style.scss';
-import Thor from '../img/thor.jpeg'
+import "../../sass/style.scss";
+import thor from "../../img/thor.jpeg";
 
 
 export default function HeroInfo() {
 	return (
         <div className='hero-info'>
             <div className="hero-info-basic">
-                <img src={Thor} alt="Thor"/>
+                <img src={thor} alt="Thor"/>
                 <div className="hero-info-name">
                     <p>Thor</p>
                     <a href="/#"><div className='button-main'> Homepage</div></a>

@@ -47,7 +47,8 @@ body {
         li:hover {
             text-decoration: none;
             color: $main-color;
-            transition: all .2s ease;
+            transition: all .3s ease;
+            transform: translateY(-3%);
         }
     }
 
@@ -94,6 +95,7 @@ a {
     img {
         width: 180px;
         height: 180px;
+        border-radius: 8px;
     }
 
     .hero-block-name {
@@ -106,7 +108,13 @@ a {
 
     .hero-block-descr {
         font-size: 14px;
-        line-height: 18px
+        line-height: 18px;
+        width: 270px;
+        height: 90px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
     }
 
     .hero-block-btns {
@@ -161,13 +169,11 @@ a {
 }
 
 .button-main:hover {
-    background-color: $main-color-transparent;
-    color: $dark;
+    transform: translateY(-10%);
 }
 
 .button-secondary:hover {
-    background-color: $grey-transparent;
-    color: $dark;
+    transform: translateY(-10%);
 }
 
 .button-secondary {

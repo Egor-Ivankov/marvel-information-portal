@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import HeroCardsItem from '../Hero-cards-item/Hero-cards-item';
-import '../sass/style.scss';
+import "../../sass/style.scss";
 
 export default function HeroCards() {
     return (

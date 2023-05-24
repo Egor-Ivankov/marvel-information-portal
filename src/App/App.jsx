@@ -1,8 +1,8 @@
 import React from "react";
-import Header from "../Header/Header";
-import HeroBlock from "../Hero-block/Hero-block";
-import HeroCards from "../Hero-cards/Hero-cards";
-import HeroInfo from "../Hero-info/Hero-info";
+import Header from "../Components/Header/Header";
+import HeroBlock from "../Components/Hero-block/Hero-block";
+import HeroCards from "../Components/Hero-cards/Hero-cards";
+import HeroInfo from "../Components/Hero-info/Hero-info";
 
 function App() {
     return (

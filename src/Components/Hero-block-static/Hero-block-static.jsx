@@ -1,6 +1,6 @@
-import React from 'react';
-import '../sass/style.scss';
-import Mjolnir from '../img/mjolnir.png';
+import React from "react";
+import "../../sass/style.scss";
+import mjolnir from "../../img/mjolnir.png";
 
 export default function HeroBlockStatic() {
     return (
@@ -13,7 +13,7 @@ export default function HeroBlockStatic() {
                 Or choose another one
             </p>
             <a href="/#"><div className='button-main'> Try it</div></a>
-            <img src={Mjolnir} alt="Mjolnir"/>
+            <img src={mjolnir} alt="Mjolnir"/>
         </div>
     )
 }

@@ -64,8 +64,6 @@ body {
     }
 }
 
-
-
 a {
     text-decoration: none;
     color: inherit;
@@ -73,6 +71,28 @@ a {
 
     &:hover {
         text-decoration: none;
+    }
+}
+
+.animate {
+    stroke-dasharray: 242.6;
+    animation: fill-animation 1s cubic-bezier(1, 1, 1, 1) 0s infinite;
+}
+
+@keyframes fill-animation {
+    0% {
+        stroke-dasharray: 40 242.6;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 141.3;
+        stroke-dashoffset: 141.3;
+    }
+
+    100% {
+        stroke-dasharray: 40 242.6;
+        stroke-dashoffset: 282.6;
     }
 }
 
@@ -98,12 +118,24 @@ a {
         border-radius: 8px;
     }
 
+    .hero-block-info {
+        position: absolute;
+        top: 11.3%;
+        left: 23%
+    }
+
     .hero-block-name {
         font-weight: bold;
         padding-bottom: 15px;
         font-size: 22px;
-        line-height: 29px;
+        line-height: 39px;
         text-transform: uppercase;
+        max-width: 300px;
+        max-height: 44px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
     }
 
     .hero-block-descr {
@@ -191,6 +223,29 @@ a {
     margin: 10px 25px 0 0;
     border-radius: 4px;
     transition: all .4s ease;
+}
+
+//Spinner 
+.spinner {
+    height: 184px;
+
+    .svg-container {
+        position: absolute;
+        top: 13.7%;
+        left: 20%;
+    }
+
+    .loader-svg {
+        fill: none;
+        stroke-width: 5px;
+        stroke-linecap: round;
+        stroke: $main-color;
+    }
+
+    .loader-svg.bg {
+        stroke-width: 8px;
+        stroke: #d8727285;
+    }
 }
 
 //Cards
@@ -369,4 +424,14 @@ a {
             opacity: 1
         }
     }
+}
+
+.error-img {
+    display: block;
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    margin: 0 auto;
+    position: absolute;
+    left: 17%;
 }

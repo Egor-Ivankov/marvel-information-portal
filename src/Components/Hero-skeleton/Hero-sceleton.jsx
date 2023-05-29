@@ -1,5 +1,5 @@
 import React from "react";
-import vision from "../../img/vision.png";
+
 
 
 export default function HeroSceleton() {
@@ -16,7 +16,6 @@ export default function HeroSceleton() {
                         <div className="pulse skeleton__block"></div>
                         <div className="pulse skeleton__block"></div>
                         <div className="pulse skeleton__block"></div>
-                        <img src={vision} alt="Vision" className="bg-decoration" />
                     </div>
         </div>
     )

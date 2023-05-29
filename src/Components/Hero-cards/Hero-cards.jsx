@@ -1,11 +1,11 @@
 import React from "react";
 import HeroCardsItem from '../Hero-cards-item/Hero-cards-item';
-import "../../sass/style.scss";
+import "../../styles/style.scss";
 
 export default function HeroCards() {
     return (
         <div className='hero-cards'>
-            <ul className='hero-cards-list'>
+            <ul>
                 <li className='hero-cards-item'><HeroCardsItem/></li>
                 <li className='hero-cards-item selected'><HeroCardsItem/></li>
                 <li className='hero-cards-item'><HeroCardsItem/></li>

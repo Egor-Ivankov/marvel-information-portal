@@ -209,20 +209,10 @@ a {
 }
 
 .button-secondary {
+    @extend .button-main;
     background-color: $grey;
     border-color: $grey;
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 14px;
-    cursor: pointer;
-    width: 100px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 10px 25px 0 0;
-    border-radius: 4px;
-    transition: all .4s ease;
 }
 
 //Spinner 
@@ -255,24 +245,8 @@ a {
 
     ul {
         list-style-type: none;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         font-size: 24px;
         line-height: 32px;
-
-        li {
-            padding-inline: 8px;
-        }
-
-        li:hover {
-            text-decoration: none;
-            color: $main-color;
-            transition: all .2s ease;
-        }
-    }
-
-    .hero-cards-list {
         display: grid;
         grid-template-columns: repeat(3, 200px);
         column-gap: 25px;

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../sass/style.scss";
+import "../../styles/style.scss";
 import hero from "../../img/abyss.jpg";
 
 export default function HeroCardsItem() {

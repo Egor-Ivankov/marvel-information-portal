@@ -1,18 +1,19 @@
 import React, {Component} from "react";
-import "../../sass/style.scss";
+import "../../styles/style.scss";
 import MarvelService from "../services/MarvelServise";
 import Spinner from "../Spinner/Spinner";
 import ErrorMessage from "../Error-message/Error-message";
 
 export default class HeroBlockDescr extends Component {
-    constructor(props) {
-        super(props)
-        this.updateHero();
-    }
+
     state = {
         hero: {},
         loading: true,
         error: false
+    }
+
+    componentDidMount() {
+        this.updateHero();
     }
 
     marvelService = new MarvelService();

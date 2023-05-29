@@ -1,6 +1,6 @@
 import React from "react";
 import HeroSceleton from '../Hero-skeleton/Hero-sceleton';
-import "../../sass/style.scss";
+import "../../styles/style.scss";
 import thor from "../../img/thor.jpeg";
 
 

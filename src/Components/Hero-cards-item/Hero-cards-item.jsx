@@ -1,12 +1,11 @@
 import React from "react";
 import "../../styles/style.scss";
-import hero from "../../img/abyss.jpg";
 
-export default function HeroCardsItem() {
+export default function HeroCardsItem({name, thumbnail}) {
     return (
         <div className='hero-card-container'>
-            <img src={hero} alt="Abyss" />
-            <p className='hero-card-name'>Abyss</p>
+            <img src={thumbnail} alt="character thumbnail" />
+            <p className='hero-card-name'>{name}</p>
         </div>
     )
 }

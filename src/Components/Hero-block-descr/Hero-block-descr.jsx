@@ -10,8 +10,10 @@ export default class HeroBlockDescr extends Component {
     state = {
         hero: {},
         loading: true,
-        error: false
+        error: false,
     }
+
+    marvelService = new MarvelService();
 
     componentDidMount() {
         this.updateHero();
@@ -20,9 +22,7 @@ export default class HeroBlockDescr extends Component {
     componentWillUnmount () {
         clearInterval(this.timerId);
     }
-
-    marvelService = new MarvelService();
-
+    
     onHeroLoaded = (hero) => {
         this.setState({
                         hero, 
@@ -30,6 +30,12 @@ export default class HeroBlockDescr extends Component {
                     })
     }
     
+    onHeroLoading = () => {
+        this.setState({
+            loading: true
+        })
+    }
+
     onError = () => {
         this.setState({
             loading: false,
@@ -39,11 +45,14 @@ export default class HeroBlockDescr extends Component {
 
     updateHero = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
+        this.onHeroLoading();
         this.marvelService
             .getHero(id)
             .then(this.onHeroLoaded)
             .catch(this.onError)
     }
+
+
 
 
     

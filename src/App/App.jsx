@@ -8,12 +8,12 @@ import vision from "../img/vision.png";
 class App extends Component {
 
     state = {
-        selectedHero: null
+        selectedHero: null,
     }
 
     onHeroSelected = (id) => {
         this.setState({
-            selectedHero: id
+            selectedHero: id,
         })
     }
 

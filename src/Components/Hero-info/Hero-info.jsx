@@ -90,15 +90,20 @@ const View = ({data}) => {
     }
 
 	const checkedDescription = checkDescr(description);
-
+	const fontStyle = {
+		fontSize: 14,
+		paddingTop: 10
+	}
 	return (
 		<>
 			<div className="hero-info-basic">
                 <img src={thumbnail} alt={name}/>
-                <div className="hero-info-name">
+                <div>
                     <p>{name}</p>
-                    <a href={homepage}><div className='button-main'> Homepage</div></a>
-                    <a href={wiki}><div className='button-secondary'>Wiki</div></a>
+                    <div className="hero-info-buttons">
+						<a href={homepage}><div className='button-main'> Homepage</div></a>
+						<a href={wiki}><div className='button-secondary'>Wiki</div></a>
+					</div>
                 </div>
             </div>
             <p>
@@ -106,8 +111,10 @@ const View = ({data}) => {
 			</p>
 			<h3>Comics:</h3>
 			<ul className="hero-info-comics">
+				{comics.length > 0 ? null : <div style={fontStyle}>There is no comics with this character</div>}
 				{
 					comics.map((item, i) => {
+						
 						return (
 							<li key={i}>
 								{item.name}

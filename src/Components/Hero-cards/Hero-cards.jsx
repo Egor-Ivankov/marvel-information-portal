@@ -59,14 +59,14 @@ export default class HeroCards extends Component {
         const content = !(loading || error) ? elements : null;
         
         return (
-            <div className='hero-cards'>
-                    {spinner}
-                    {errorMessage}
-                <ul>
-                    {content}
-                </ul>
-                <a href="/#"><div className='button-main'>Homepage</div></a>
-            </div>
+                    <div className='hero-cards'>
+                            {spinner}
+                            {errorMessage}
+                        <ul>
+                            {content}
+                        </ul>
+                        <a href="/#"><div className='button-main'>Load more</div></a>
+                    </div>
         )
     }
 }

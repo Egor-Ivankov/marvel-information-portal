@@ -9,7 +9,17 @@
 }
 
 body {
-    background-color: #f5929217;
+    position: relative;
+    z-index: 1;
+}
+
+body::before {
+    content: url('../img/7994582.jpg');
+    opacity: .1;
+    z-index: -1;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 //App
@@ -24,7 +34,6 @@ body {
     position: absolute;
     right: -174px;
     bottom: -70px;
-    z-index: -1;
 }
 
 .Header {
@@ -125,7 +134,7 @@ a {
         font-size: 22px;
         line-height: 39px;
         text-transform: uppercase;
-        max-width: 300px;
+        max-width: 290px;
         max-height: 44px;
         overflow: hidden;
         display: -webkit-box;
@@ -145,9 +154,9 @@ a {
     }
 
     .hero-block-btns {
-        position: relative;
         display: flex;
         justify-content: space-between;
+        margin-top: 6px;
     }
 }
 
@@ -251,9 +260,9 @@ a {
     }
 
     .button-main {
-        margin-left: 223px;
-        margin-top: 50px;
         width: 200px;
+        position: absolute;
+        left: 20.5%
     }
 }
 
@@ -414,11 +423,8 @@ a {
 }
 
 .error-img {
-    display: block;
+    margin-left: 30%;
     width: 250px;
     height: 250px;
     object-fit: contain;
-    margin: 0 auto;
-    position: absolute;
-    left: 17%;
 }

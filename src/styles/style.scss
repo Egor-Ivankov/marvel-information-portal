@@ -105,7 +105,9 @@ a {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     height: 260px;
+    width: 100%;
     background-color: #fff;
+    position: relative;
 
     .thumbnail {
         width: 180px;
@@ -116,8 +118,8 @@ a {
 
     .hero-block-info {
         position: absolute;
-        top: 11.3%;
-        left: 23%
+        top: 12.3%;
+        left: 45%
     }
 
     .hero-block-name {
@@ -247,14 +249,16 @@ a {
         row-gap: 30px;
     }
 
-    .hero-cards-item {
-        padding: 0;
-    }
 
     .button-main {
         width: 200px;
         position: absolute;
-        left: 20.5%
+        left: 20.5%;
+        margin-top: 30px;
+    }
+
+    .button-main:disabled {
+        filter: grayscale(50%);
     }
 }
 

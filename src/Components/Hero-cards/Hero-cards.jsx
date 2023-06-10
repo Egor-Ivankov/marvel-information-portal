@@ -1,37 +1,56 @@
 import React, {Component} from "react";
 import HeroCardsItem from '../Hero-cards-item/Hero-cards-item';
-import "../../styles/style.scss";
 import MarvelService from "../services/MarvelServise";
 import ErrorMessage from "../Error-message/Error-message";
 import Spinner from "../Spinner/Spinner";
+import "../../styles/style.scss";
 
 export default class HeroCards extends Component {
+
         state = {
             data: [],
             loading: true,
-            error: false
+            error: false,
+            newItemLoading: false,
+            offset: 210,
+            heroEnded: false
         }
 
     service = new MarvelService();
     
-    getData = async (service) => {
-        const resData =  await service.getAllHeroes()
-        this.setState({
-            data: resData
-        })
+    componentDidMount() {
+        this.onRequest();
     }
-    
-    componentDidMount () {
-        this.getData(this.service)
+
+    onRequest = (offset) => {
+        this.onHeroListLoading();
+        this.service.getAllHeroes(offset)
         .then(this.onDataLoaded)
         .catch(this.onError)
     }
 
-    onDataLoaded = (charList) => {
+    onHeroListLoading = () => {
         this.setState({
-            charList,
-            loading: false
+            newItemLoading: true
         })
+    }
+
+    onDataLoaded = (newData) => {
+
+        let ended = false;
+
+        if(newData.length < 9) {
+            ended = true;
+            alert('All characters is end')
+        }
+
+        this.setState(({offset}) => ({
+            data: [...newData],
+            loading: false,
+            newItemLoading: false,
+            offset: offset + 9,
+            heroEnded: ended
+        }))
     }
 
     onError = () => {
@@ -42,7 +61,7 @@ export default class HeroCards extends Component {
     }
 
     render() {
-        const {data, loading, error} = this.state;
+        const {data, loading, error, newItemLoading, offset, heroEnded} = this.state;
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
 
@@ -65,7 +84,12 @@ export default class HeroCards extends Component {
                         <ul>
                             {content}
                         </ul>
-                        <a href="/#"><div className='button-main'>Load more</div></a>
+                        <button
+                            onClick={() => this.onRequest(offset)}
+                            disabled={newItemLoading}
+                            style={{'display': heroEnded ? 'none' : 'block'}}
+                            className='button-main'
+                        >Load new heroes</button>
                     </div>
         )
     }

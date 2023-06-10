@@ -3,6 +3,7 @@ import HeroSceleton from '../Hero-skeleton/Hero-sceleton';
 import MarvelService from "../services/MarvelServise";
 import Spinner from "../Spinner/Spinner";
 import ErrorMessage from "../Error-message/Error-message";
+import PropTypes from 'prop-types';
 import "../../styles/style.scss";
 
 export default class HeroInfo extends Component {
@@ -125,4 +126,8 @@ const View = ({data}) => {
 			</ul>
 		</>
 	)
+}
+
+HeroInfo.propTypes = {
+	heroId: PropTypes.number
 }

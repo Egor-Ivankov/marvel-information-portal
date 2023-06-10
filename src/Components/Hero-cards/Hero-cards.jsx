@@ -3,6 +3,7 @@ import HeroCardsItem from '../Hero-cards-item/Hero-cards-item';
 import MarvelService from "../services/MarvelServise";
 import ErrorMessage from "../Error-message/Error-message";
 import Spinner from "../Spinner/Spinner";
+import PropTypes from 'prop-types';
 import "../../styles/style.scss";
 
 export default class HeroCards extends Component {
@@ -93,4 +94,8 @@ export default class HeroCards extends Component {
                     </div>
         )
     }
+}
+
+HeroCards.propTypes = {
+    onHeroSelected: PropTypes.func
 }

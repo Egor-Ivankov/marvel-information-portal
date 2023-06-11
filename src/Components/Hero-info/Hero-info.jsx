@@ -91,10 +91,7 @@ const View = ({data}) => {
     }
 
 	const checkedDescription = checkDescr(description);
-	const fontStyle = {
-		fontSize: 14,
-		paddingTop: 10
-	}
+
 	return (
 		<>
 			<div className="hero-info-basic">
@@ -112,7 +109,7 @@ const View = ({data}) => {
 			</p>
 			<h3>Comics:</h3>
 			<ul className="hero-info-comics">
-				{comics.length > 0 ? null : <div style={fontStyle}>There is no comics with this character</div>}
+				{comics.length > 0 ? null : <div style={{'fontSize': '14px', 'paddingTop': '10px'}}>There is no comics with this character</div>}
 				{
 					comics.map((item, i) => {
 						

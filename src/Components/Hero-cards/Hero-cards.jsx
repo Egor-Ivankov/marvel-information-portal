@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import HeroCardsItem from '../Hero-cards-item/Hero-cards-item';
 import MarvelService from "../services/MarvelServise";
 import ErrorMessage from "../Error-message/Error-message";
 import Spinner from "../Spinner/Spinner";
@@ -45,8 +44,8 @@ export default class HeroCards extends Component {
             alert('All characters is end')
         }
 
-        this.setState(({offset}) => ({
-            data: [...newData],
+        this.setState(({data, offset}) => ({
+            data: [...data, ...newData],
             loading: false,
             newItemLoading: false,
             offset: offset + 9,
@@ -61,19 +60,37 @@ export default class HeroCards extends Component {
         })
     }
 
+    itemRefs = []; 
+
+    setRef = (ref) => {
+        this.itemRefs.push(ref)
+    }
+
+    focusOnItem = (id) => {
+        this.itemRefs.forEach(item => item.classList.remove('hero-card-container-selected'));
+        this.itemRefs[id].classList.add('hero-card-container-selected');
+    }
+
     render() {
         const {data, loading, error, newItemLoading, offset, heroEnded} = this.state;
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
 
-        const elements = data.map(item => {
-            return <HeroCardsItem
-            name={item.name}
-            thumbnail={item.thumbnail}
-            key={item.id}
-            onHeroSelected={this.props.onHeroSelected}
-            id={item.id}
-            />
+        const elements = data.map((item, i) => {
+            return (
+                <div 
+                    className='hero-card-container' 
+                    onClick={() => {
+                                    this.props.onHeroSelected(item.id)
+                                    this.focusOnItem(i)
+                                    }}
+                    key={item.id}
+                    ref={this.setRef}
+                >
+                    <img src={item.thumbnail} alt={item.name} />
+                    <p className='hero-card-name'>{item.name}</p>
+                </div>
+            )
         })
         
         const content = !(loading || error) ? elements : null;

@@ -6,7 +6,7 @@ import HeroInfo from "../Components/Hero-info/Hero-info";
 import ErrorBoundary from "../Components/Error-boundary/ErrorBoundary";
 import vision from "../img/vision.png";
 
-function App () {
+export default function App () {
 
     const [selectedHero, setSelectedHero] = useState(null);
 
@@ -14,21 +14,20 @@ function App () {
         setSelectedHero(id);
     }
 
-        return (
-            <div className="App">
-                <Header/>
-                <ErrorBoundary>
-                    <HeroBlockDescr/>
-                </ErrorBoundary>
-                <div className="hero-content">
-                        <HeroCards onHeroSelected={onHeroSelected} />
-                        <ErrorBoundary>
-                            <HeroInfo heroId ={selectedHero}/>
-                        </ErrorBoundary>
-                </div>
-                <img src={vision} alt="Vision" className="bg-decoration" />
+    return (
+        <div className="App">
+            <Header/>
+            <ErrorBoundary>
+                <HeroBlockDescr/>
+            </ErrorBoundary>
+            <div className="hero-content">
+                    <HeroCards onHeroSelected={onHeroSelected} />
+                    <ErrorBoundary>
+                        <HeroInfo heroId ={selectedHero}/>
+                    </ErrorBoundary>
             </div>
-        );
+            <img src={vision} alt="Vision" className="bg-decoration" />
+        </div>
+    );
 }
 
-export default App;

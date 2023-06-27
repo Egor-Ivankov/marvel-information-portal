@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import HeroSceleton from '../Hero-skeleton/Hero-sceleton';
 import MarvelService from "../services/MarvelServise";
 import Spinner from "../Spinner/Spinner";
@@ -6,77 +6,59 @@ import ErrorMessage from "../Error-message/Error-message";
 import PropTypes from 'prop-types';
 import "../../styles/style.scss";
 
-export default class HeroInfo extends Component {
-	
-	state = {
-		data: null,
-		loading: false,
-		error: false
-	}
+function HeroInfo (props) {
+	const [data, setData] = useState(null);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
 
-	service = new MarvelService();
+	const service = new MarvelService();
 
-	componentDidMount() {
-		this.updateHero();
-	}
+	useEffect(() => {
+		updateHero();
+		// eslint-disable-next-line
+	}, [props.heroId]);
 
-	componentDidUpdate(prevProps) {
-		if (this.props.heroId !== prevProps.heroId) {
-			this.updateHero();
-		}
-	}
-
-	updateHero = () => {
-		const {heroId} = this.props;
+	const updateHero = () => {
+		const {heroId} = props;
 
 		if (!heroId) {
 			return;
 		}
 
-		this.onDataLoading();
+		onDataLoading();
 
-		this.service
-			.getHero(heroId)
-			.then(this.onDataLoaded)
-			.catch(this.onError);
+		service.getHero(heroId)
+			.then(onDataLoaded)
+			.catch(onError);
 	}
 
-	onDataLoaded = (data) => {
-        this.setState({
-            data,
-            loading: false
-        })
+	const onDataLoaded = (data) => {
+        setData(data);
+		setLoading(false);
     }
 
-    onError = () => {
-        this.setState({
-            error: true,
-            loading: false
-        })
+	const onDataLoading = () => {
+		setLoading(true);
+	}
+
+    const onError = () => {
+            setError(true);
+            setLoading(false);
     }
 
-	onDataLoading = () => {
-		this.setState({
-			loading: true
-		})
-	}
+	const skeleton = data || loading || error ? null : <HeroSceleton/>;
+	const errorMessage = error ? <ErrorMessage/> : null;
+	const spinner = loading ? <Spinner/> : null;
+	const content = !(loading || error || !data) ? <View data={data}/> : null;
 
-	render() {
-		const {data, loading, error} = this.state;
-		const skeleton = data || loading || error ? null : <HeroSceleton/>;
-        const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spinner/> : null;
-		const content = !(loading || error || !data) ? <View data={data}/> : null;
-
-		return (
-			<div className='hero-info'>
-				{skeleton}
-				{errorMessage}
-				{spinner}
-				{content}
-            </div>
-		)
-	}
+	return (
+		<div className='hero-info'>
+			{skeleton}
+			{errorMessage}
+			{spinner}
+			{content}
+		</div>
+	)
 }
 
 const View = ({data}) => {
@@ -111,14 +93,15 @@ const View = ({data}) => {
 			<ul className="hero-info-comics">
 				{comics.length > 0 ? null : <div style={{'fontSize': '14px', 'paddingTop': '10px'}}>There is no comics with this character</div>}
 				{
+
 					comics.map((item, i) => {
-						
 						return (
 							<li key={i}>
 								{item.name}
 							</li>
 						)
 					})
+
 				}
 			</ul>
 		</>
@@ -128,3 +111,5 @@ const View = ({data}) => {
 HeroInfo.propTypes = {
 	heroId: PropTypes.number
 }
+
+export default HeroInfo;

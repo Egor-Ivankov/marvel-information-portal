@@ -1,86 +1,72 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import "../../styles/style.scss";
 import MarvelService from "../services/MarvelServise";
 import mjolnir from "../../img/mjolnir.png";
 import Spinner from "../Spinner/Spinner";
 import ErrorMessage from "../Error-message/Error-message";
 
-export default class HeroBlockDescr extends Component {
+function HeroBlockDescr () {
+    const [hero, setHero] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
-    state = {
-        hero: {},
-        loading: true,
-        error: false,
-    }
+    const marvelService = new MarvelService();
 
-    marvelService = new MarvelService();
+    useEffect(() => {
+        updateHero();
 
-    componentDidMount() {
-        this.updateHero();
-    }
+        const timerId = setInterval(updateHero, 60000);
 
-    componentWillUnmount () {
-        clearInterval(this.timerId);
-    }
-    
-    onHeroLoaded = (hero) => {
-        this.setState({
-                        hero, 
-                        loading: false
-                    })
+        return () => {
+            clearInterval(timerId);
+        }
+        // eslint-disable-next-line
+    }, [])
+
+    const onHeroLoaded = (hero) => {
+        setHero(hero);
+        setLoading(false);
     }
     
-    onHeroLoading = () => {
-        this.setState({
-            loading: true
-        })
+    const onHeroLoading = () => {
+        setLoading(true);
     }
 
-    onError = () => {
-        this.setState({
-            loading: false,
-            error: true
-        })
+    const onError = () => {
+        setLoading(false);
+        setError(true);
     }
 
-    updateHero = () => {
+    const updateHero = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-        this.onHeroLoading();
-        this.marvelService
-            .getHero(id)
-            .then(this.onHeroLoaded)
-            .catch(this.onError)
+        onHeroLoading();
+        marvelService.getHero(id)
+            .then(onHeroLoaded)
+            .catch(onError)
     }
 
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const spinner = loading ? <Spinner/> : null;
+    const content = !(loading || error) ? <View hero={hero}/> : null;
 
-
-
-    
-    render() {
-        const {hero, loading, error} = this.state;
-        const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spinner/> : null;
-        const content = !(loading || error) ? <View hero={hero}/> : null;
-
-        return (
-            <div className='hero-block-container'>
-                {errorMessage} 
-                {spinner}
-                {content}
-                <div className='hero-block-static'>
-                <p>
-                    Random character for today! <br/>
-                    Do you want to get to know him better?
-                </p>
-                <p className='hero-block-static-letter'>
-                    Or choose another one
-                </p>
-                <button onClick={this.updateHero} className='button-main'> Try it</button>
-                <img src={mjolnir} alt="Mjolnir"/>
-                </div>
+    return (
+        <div className='hero-block-container'>
+            {errorMessage} 
+            {spinner}
+            {content}
+            <div className='hero-block-static'>
+            <p>
+                Random character for today! <br/>
+                Do you want to get to know him better?
+            </p>
+            <p className='hero-block-static-letter'>
+                Or choose another one
+            </p>
+            <button onClick={updateHero} className='button-main'> Try it</button>
+            <img src={mjolnir} alt="Mjolnir"/>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 const View = ({hero}) => {
@@ -112,3 +98,5 @@ const View = ({hero}) => {
         </div>
     )
 }
+
+export default HeroBlockDescr;

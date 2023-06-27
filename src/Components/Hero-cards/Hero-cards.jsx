@@ -1,41 +1,38 @@
-import React, {Component} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import MarvelService from "../services/MarvelServise";
 import ErrorMessage from "../Error-message/Error-message";
 import Spinner from "../Spinner/Spinner";
 import PropTypes from 'prop-types';
 import "../../styles/style.scss";
 
-export default class HeroCards extends Component {
-
-        state = {
-            data: [],
-            loading: true,
-            error: false,
-            newItemLoading: false,
-            offset: 210,
-            heroEnded: false
-        }
-
-    service = new MarvelService();
+function HeroCards (props) {
     
-    componentDidMount() {
-        this.onRequest();
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [newItemLoading, setNewItemLoading] = useState(false);
+    const [offset, setOffset] = useState(210);
+    const [heroEnded, setHeroEnded] = useState(false);
+
+    const service = new MarvelService();
+
+    useEffect(() => {
+        onRequest();
+        // eslint-disable-next-line
+    }, [])
+
+    const onRequest = (offset) => {
+        onHeroListLoading();
+        service.getAllHeroes(offset)
+        .then(onDataLoaded)
+        .catch(onError)
     }
 
-    onRequest = (offset) => {
-        this.onHeroListLoading();
-        this.service.getAllHeroes(offset)
-        .then(this.onDataLoaded)
-        .catch(this.onError)
+    const onHeroListLoading = () => {
+        setNewItemLoading(true);
     }
 
-    onHeroListLoading = () => {
-        this.setState({
-            newItemLoading: true
-        })
-    }
-
-    onDataLoaded = (newData) => {
+    const onDataLoaded = (newData) => {
 
         let ended = false;
 
@@ -44,75 +41,66 @@ export default class HeroCards extends Component {
             alert('All characters is end')
         }
 
-        this.setState(({data, offset}) => ({
-            data: [...data, ...newData],
-            loading: false,
-            newItemLoading: false,
-            offset: offset + 9,
-            heroEnded: ended
-        }))
+        setData(() => [...data, ...newData]);
+        setLoading(false);
+        setNewItemLoading(false);
+        setOffset(offset => offset + 9);
+        setHeroEnded(ended);
     }
 
-    onError = () => {
-        this.setState({
-            error: true,
-            loading: false
-        })
+    const onError = () => {
+        setError(true);
+        setLoading(false);
     }
 
-    itemRefs = []; 
+    const itemRefs = useRef([]); 
 
-    setRef = (ref) => {
-        this.itemRefs.push(ref)
+    const focusOnItem = (id) => {
+        itemRefs.current.forEach(item => item.classList.remove('hero-card-container-selected'));
+        itemRefs.current[id].classList.add('hero-card-container-selected');
+        itemRefs.current[id].focus();
     }
 
-    focusOnItem = (id) => {
-        this.itemRefs.forEach(item => item.classList.remove('hero-card-container-selected'));
-        this.itemRefs[id].classList.add('hero-card-container-selected');
-    }
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const spinner = loading ? <Spinner/> : null;
 
-    render() {
-        const {data, loading, error, newItemLoading, offset, heroEnded} = this.state;
-        const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spinner/> : null;
-
-        const elements = data.map((item, i) => {
-            return (
-                <div 
-                    className='hero-card-container' 
-                    onClick={() => {
-                                    this.props.onHeroSelected(item.id)
-                                    this.focusOnItem(i)
-                                    }}
-                    key={item.id}
-                    ref={this.setRef}
-                >
-                    <img src={item.thumbnail} alt={item.name} />
-                    <p className='hero-card-name'>{item.name}</p>
-                </div>
-            )
-        })
-        
-        const content = !(loading || error) ? elements : null;
-        
+    const elements = data.map((item, i) => {
         return (
-                    <div className='hero-cards'>
-                            {spinner}
-                            {errorMessage}
-                        <ul>
-                            {content}
-                        </ul>
-                        <button
-                            onClick={() => this.onRequest(offset)}
-                            disabled={newItemLoading}
-                            style={{'display': heroEnded ? 'none' : 'block'}}
-                            className='button-main'
-                        >Load new heroes</button>
-                    </div>
+            <div 
+                className='hero-card-container' 
+                onClick={() => {
+                                props.onHeroSelected(item.id);
+                                focusOnItem(i);
+                                }}
+                key={item.id}
+                ref={el => itemRefs.current[i] = el}>
+                <img src={item.thumbnail} alt={item.name} />
+                <p className='hero-card-name'>{item.name}</p>
+            </div>
         )
-    }
+    })
+    
+    const content = !(loading || error) ? elements : null;
+    
+    return (
+                <div className='hero-cards'>
+                        {spinner}
+                        {errorMessage}
+                    <ul>
+                        {content}
+                    </ul>
+                    <button
+                        onClick={() => onRequest(offset)}
+                        disabled={newItemLoading}
+                        style={{'display': heroEnded ? 'none' : 'block'}}
+                        className='button-main'
+                    >Load new heroes</button>
+                </div>
+    )
 }
 
 HeroCards.propTypes = {
     onHeroSelected: PropTypes.func
 }
+
+export default HeroCards;

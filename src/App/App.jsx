@@ -16,17 +16,19 @@ export default function App () {
 
     return (
         <div className="App">
-            <Header/>
-            <ErrorBoundary>
-                <HeroBlockDescr/>
-            </ErrorBoundary>
-            <div className="hero-content">
-                    <HeroCards onHeroSelected={onHeroSelected} />
-                    <ErrorBoundary>
-                        <HeroInfo heroId ={selectedHero}/>
-                    </ErrorBoundary>
-            </div>
-            <img src={vision} alt="Vision" className="bg-decoration" />
+                <Header/>
+            <main>
+                <ErrorBoundary>
+                    <HeroBlockDescr/>
+                </ErrorBoundary>
+                <div className="hero-content">
+                        <HeroCards onHeroSelected={onHeroSelected} />
+                        <ErrorBoundary>
+                            <HeroInfo heroId ={selectedHero}/>
+                        </ErrorBoundary>
+                </div>
+                <img src={vision} alt="Vision" className="bg-decoration" />
+            </main>
         </div>
     );
 }

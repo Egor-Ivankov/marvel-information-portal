@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import HeroSceleton from '../Hero-skeleton/Hero-sceleton';
-import MarvelService from "../services/MarvelServise";
+import useMarvelService from "../services/MarvelServise";
 import Spinner from "../Spinner/Spinner";
 import ErrorMessage from "../Error-message/Error-message";
 import PropTypes from 'prop-types';
@@ -8,10 +8,7 @@ import "../../styles/style.scss";
 
 function HeroInfo (props) {
 	const [data, setData] = useState(null);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(false);
-
-	const service = new MarvelService();
+	const {loading, error, clearError,getHero} = useMarvelService();
 
 	useEffect(() => {
 		updateHero();
@@ -25,25 +22,14 @@ function HeroInfo (props) {
 			return;
 		}
 
-		onDataLoading();
+		clearError();
 
-		service.getHero(heroId)
+		getHero(heroId)
 			.then(onDataLoaded)
-			.catch(onError);
 	}
 
 	const onDataLoaded = (data) => {
         setData(data);
-		setLoading(false);
-    }
-
-	const onDataLoading = () => {
-		setLoading(true);
-	}
-
-    const onError = () => {
-            setError(true);
-            setLoading(false);
     }
 
 	const skeleton = data || loading || error ? null : <HeroSceleton/>;

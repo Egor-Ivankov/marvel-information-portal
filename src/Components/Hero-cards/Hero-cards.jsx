@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import MarvelService from "../services/MarvelServise";
+import useMarvelService from "../services/MarvelServise";
 import ErrorMessage from "../Error-message/Error-message";
 import Spinner from "../Spinner/Spinner";
 import PropTypes from 'prop-types';
@@ -8,28 +8,20 @@ import "../../styles/style.scss";
 function HeroCards (props) {
     
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
     const [newItemLoading, setNewItemLoading] = useState(false);
     const [offset, setOffset] = useState(210);
     const [heroEnded, setHeroEnded] = useState(false);
-
-    const service = new MarvelService();
+    const {loading, error, getAllHeroes} = useMarvelService();
 
     useEffect(() => {
-        onRequest();
+        onRequest(offset, true);
         // eslint-disable-next-line
     }, [])
 
-    const onRequest = (offset) => {
-        onHeroListLoading();
-        service.getAllHeroes(offset)
-        .then(onDataLoaded)
-        .catch(onError)
-    }
-
-    const onHeroListLoading = () => {
-        setNewItemLoading(true);
+    const onRequest = (offset, initial) => {
+        initial ? setNewItemLoading(false) : setNewItemLoading(true);
+        getAllHeroes(offset)
+            .then(onDataLoaded)
     }
 
     const onDataLoaded = (newData) => {
@@ -42,15 +34,9 @@ function HeroCards (props) {
         }
 
         setData(() => [...data, ...newData]);
-        setLoading(false);
         setNewItemLoading(false);
         setOffset(offset => offset + 9);
         setHeroEnded(ended);
-    }
-
-    const onError = () => {
-        setError(true);
-        setLoading(false);
     }
 
     const itemRefs = useRef([]); 
@@ -62,7 +48,7 @@ function HeroCards (props) {
     }
 
     const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
+    const spinner = loading && !newItemLoading ? <Spinner/> : null;
 
     const elements = data.map((item, i) => {
         return (
@@ -80,14 +66,12 @@ function HeroCards (props) {
         )
     })
     
-    const content = !(loading || error) ? elements : null;
-    
     return (
                 <div className='hero-cards'>
                         {spinner}
                         {errorMessage}
                     <ul>
-                        {content}
+                        {elements}
                     </ul>
                     <button
                         onClick={() => onRequest(offset)}

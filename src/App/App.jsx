@@ -4,6 +4,8 @@ import HeroBlockDescr from "../Components/Hero-block-descr/Hero-block-descr";
 import HeroCards from "../Components/Hero-cards/Hero-cards";
 import HeroInfo from "../Components/Hero-info/Hero-info";
 import ErrorBoundary from "../Components/Error-boundary/ErrorBoundary";
+// import AppBanner from "../Components/App-banner/AppBanner";
+// import ComicsList from "../Components/ComicsList/ComicsList";
 import vision from "../img/vision.png";
 
 export default function App () {
@@ -18,6 +20,8 @@ export default function App () {
         <div className="App">
                 <Header/>
             <main>
+                {/* <AppBanner/>
+                <ComicsList/> */}
                 <ErrorBoundary>
                     <HeroBlockDescr/>
                 </ErrorBoundary>

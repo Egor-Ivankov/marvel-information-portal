@@ -78,7 +78,7 @@ function HeroCards (props) {
                         disabled={newItemLoading}
                         style={{'display': heroEnded ? 'none' : 'block'}}
                         className='button-main'
-                    >Load new heroes</button>
+                    >Load more</button>
                 </div>
     )
 }

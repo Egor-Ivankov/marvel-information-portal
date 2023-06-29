@@ -424,3 +424,64 @@ a {
     height: 250px;
     object-fit: contain;
 }
+
+.app-banner{
+    width: 100%;
+    background-color: $dark;
+    height: 100px;
+    .app-banner-img{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img {
+            height: 100%;
+            padding-inline: 50px;
+        }
+        .app-banner-text{
+            color: #fff;
+            font-size: 25px;
+            font-weight: 600;
+            margin-right: 30%;
+        }
+    }
+}
+
+.comics-list {
+    width: 100%;
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 225px);
+    justify-content: space-between;
+    row-gap: 25px;
+
+    .comics-list-item {
+        list-style: none;
+        transition: all .3s ease;
+        margin-bottom: 30px;
+        img {
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+            width: 225px;
+            height: 345px;
+        }
+        .comics-list-item-text{
+            h2{
+                font-size: 16px;
+            }
+            p{
+                color: $grey;
+            }
+        }
+    }
+    .comics-list-item-selected {
+        transform: translateY(-8px);
+        box-shadow: 0 5px 20px $main-color;
+    }
+}
+.button-main-long{
+    margin-top: 30px;
+    width: 200px;
+    margin-left: 41%;
+}
+.button-main:disabled {
+    filter: grayscale(50%);
+}

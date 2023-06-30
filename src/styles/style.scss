@@ -485,3 +485,26 @@ a {
 .button-main:disabled {
     filter: grayscale(50%);
 }
+.background {
+    width: 1090px;
+    position: absolute;
+    top: -25%;
+    left: 28%;
+    z-index: -1;
+}
+.no-match-text {
+    h2 {
+        font-size: 40px;
+        margin: 150px 0 25px 0;
+
+    }
+    strong{
+        display: block;
+        font-size: 25px;
+        margin-bottom: 15px;
+    }
+    p {
+        color: $grey;
+        font-size: 18px;
+    }
+}

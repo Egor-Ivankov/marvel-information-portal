@@ -1,39 +1,25 @@
-import React, {useState} from "react";
-import Header from "../Components/Header/Header";
-import HeroBlockDescr from "../Components/Hero-block-descr/Hero-block-descr";
-import HeroCards from "../Components/Hero-cards/Hero-cards";
-import HeroInfo from "../Components/Hero-info/Hero-info";
-import ErrorBoundary from "../Components/Error-boundary/ErrorBoundary";
-// import AppBanner from "../Components/App-banner/AppBanner";
-// import ComicsList from "../Components/ComicsList/ComicsList";
-import vision from "../img/vision.png";
-
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import Header from '../Components/Header/Header';
+import { MainPage, ComicsPage } from "../Components/pages";
 export default function App () {
 
-    const [selectedHero, setSelectedHero] = useState(null);
-
-    const onHeroSelected = (id) => {
-        setSelectedHero(id);
-    }
-
     return (
-        <div className="App">
+        <Router>
+            <div className="App">
                 <Header/>
-            <main>
-                {/* <AppBanner/>
-                <ComicsList/> */}
-                <ErrorBoundary>
-                    <HeroBlockDescr/>
-                </ErrorBoundary>
-                <div className="hero-content">
-                        <HeroCards onHeroSelected={onHeroSelected} />
-                        <ErrorBoundary>
-                            <HeroInfo heroId ={selectedHero}/>
-                        </ErrorBoundary>
-                </div>
-                <img src={vision} alt="Vision" className="bg-decoration" />
-            </main>
-        </div>
+                <main>
+                    <Switch>
+                        <Route exact path="/">
+                            <MainPage/>
+                        </Route>
+                        <Route exact path="/comics">
+                            <ComicsPage/>
+                        </Route>
+                    </Switch>
+                </main>
+            </div>
+        </Router>
     );
 }
 

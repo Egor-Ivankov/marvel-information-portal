@@ -39,10 +39,10 @@ function HeroInfo (props) {
 
 	return (
 		<div className='hero-info'>
-			{skeleton}
-			{errorMessage}
-			{spinner}
-			{content}
+				{skeleton}
+				{errorMessage}
+				{spinner}
+				{content}
 		</div>
 	)
 }

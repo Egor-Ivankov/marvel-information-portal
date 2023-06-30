@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from '../Components/Header/Header';
 import { MainPage, ComicsPage } from "../Components/pages";
 export default function App () {
@@ -9,14 +9,10 @@ export default function App () {
             <div className="App">
                 <Header/>
                 <main>
-                    <Switch>
-                        <Route exact path="/">
-                            <MainPage/>
-                        </Route>
-                        <Route exact path="/comics">
-                            <ComicsPage/>
-                        </Route>
-                    </Switch>
+                    <Routes>
+                        <Route path="/" element={<MainPage/>}/>
+                        <Route path="/comics" element={<ComicsPage/>}/>
+                    </Routes>
                 </main>
             </div>
         </Router>

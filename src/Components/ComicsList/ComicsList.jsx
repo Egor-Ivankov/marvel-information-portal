@@ -1,8 +1,9 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../../styles/style.scss';
 import ErrorMessage from '../Error-message/Error-message';
 import Spinner from '../Spinner/Spinner';
 import useMarvelService from '../services/MarvelServise';
+import { Link } from 'react-router-dom';
 
 
 const ComicsList = () => {
@@ -38,28 +39,20 @@ const ComicsList = () => {
         setComicsEnded(ended);
     }
 
-    const itemRefs = useRef([]);
-
-    const focusOnItem = (id) => {
-        itemRefs.current.forEach(item => item.classList.remove('comics-list-item-selected'));
-        itemRefs.current[id].classList.add('comics-list-item-selected');
-        itemRefs.current[id].focus();
-    }
-
     const elements = data.map((comics, i) => {
         return (
             /*The key attribute is deliberately made 
             as an element index so that there are no errors in the console 
             with a repeated key. Marvel API has a large number of recurring comics
             */
-            <li className="comics-list-item" ref={el => itemRefs.current[i] = el} key={i} onClick={() => focusOnItem(i)}>
-                <a href='#/'>
+            <li className="comics-list-item"  key={i}>
+                <Link to={`/comics/${comics.id}`} element='#/'>
                     <img src={comics.thumbnail} alt={comics.title} />
                     <div className="comics-list-item-text">
                         <h2>{comics.title}</h2>
                         <p>{comics.price}</p>
                     </div>
-                </a>
+                </Link>
             </li>
         )
     })

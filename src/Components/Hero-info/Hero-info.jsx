@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
-import HeroSceleton from '../Hero-skeleton/Hero-sceleton';
 import useMarvelService from "../services/MarvelServise";
 import Spinner from "../Spinner/Spinner";
 import ErrorMessage from "../Error-message/Error-message";
 import PropTypes from 'prop-types';
+import HeroSceleton from '../Hero-skeleton/Hero-sceleton';
 import "../../styles/style.scss";
 
 function HeroInfo (props) {

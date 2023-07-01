@@ -22,7 +22,6 @@ export default function Header() {
 
             <li>
                 <NavLink 
-                end 
                 style={({isActive}) => ({color: isActive ? '#9F0013' : 'inherit'})} 
                 to="/comics">
                     Comics

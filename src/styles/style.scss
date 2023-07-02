@@ -304,19 +304,26 @@ a {
         padding-top: 25px;
     }
 
-    ul {
+    .hero-info-comics {
         list-style-type: none;
+        display: flex;
+        flex-direction: column;
 
-        li {
-            padding: 0 10px;
+        .comics-item {
+            margin: 0 10px;
             box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
-            margin-top: 10px;
+            margin-top: 15px;
             font-size: 16px;
             line-height: 25px;
         }
 
-        li:nth-of-type(1n+11) {
+        .comics-item:nth-of-type(1n+11) {
             display: none;
+        }
+
+        .comics-item:hover{
+            transform: translateY(-10%);
+            box-shadow: 0px 4px 4px rgba(251, 1, 1, 0.3);
         }
     }
 

@@ -25,7 +25,7 @@ const  useMarvelService = () => {
             homepage: hero.urls[0].url,
             wiki: hero.urls[1].url,
             id: hero.id,
-            comics: hero.comics.items,
+            comics: hero.comics.items,  
         }
     }
 

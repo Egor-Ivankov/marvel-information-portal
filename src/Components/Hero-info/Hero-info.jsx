@@ -4,6 +4,7 @@ import Spinner from "../Spinner/Spinner";
 import ErrorMessage from "../Error-message/Error-message";
 import PropTypes from 'prop-types';
 import HeroSceleton from '../Hero-skeleton/Hero-sceleton';
+import { Link } from "react-router-dom";
 import "../../styles/style.scss";
 
 function HeroInfo (props) {
@@ -50,6 +51,7 @@ function HeroInfo (props) {
 const View = ({data}) => {
 	const {name, description, thumbnail, homepage, wiki, comics} = data;
 
+
 	const checkDescr = (descr) => {
         if (descr === "") {
             return "This character has not a description";
@@ -82,9 +84,11 @@ const View = ({data}) => {
 
 					comics.map((item, i) => {
 						return (
-							<li key={i}>
+							<Link to={`comics/${item.resourceURI.replace(/[^0-9]/g,"").slice(1)}`} 
+								className="comics-item"
+								key={item.name} >
 								{item.name}
-							</li>
+							</Link>
 						)
 					})
 

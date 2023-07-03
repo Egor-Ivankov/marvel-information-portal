@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from 'react';
+import React, { useState, lazy, Suspense, useCallback } from 'react';
 import HeroBlockDescr from "../Hero-block-descr/Hero-block-descr";
 import HeroCards from '../Hero-cards/Hero-cards';
 import Spinner from '../Spinner/Spinner';
@@ -10,9 +10,10 @@ const HeroInfo = lazy(() => import('../Hero-info/Hero-info'));
 const MainPage = () => {
     const [selectedHero, setSelectedHero] = useState(null);
 
-    const onHeroSelected = (id) => {
+    const onHeroSelected = useCallback((id) => {
         setSelectedHero(id);
-    }
+        // eslint-disable-next-line
+    }, [selectedHero]);
 
     return (
         <>

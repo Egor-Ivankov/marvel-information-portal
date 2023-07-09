@@ -285,6 +285,22 @@ a {
     transition: all .3s ease;
 }
 
+.hero-transition-enter {
+    opacity: 0;
+}
+.hero-transition-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+.hero-transition-exit {
+    opacity: 1;
+}
+.hero-transition-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+}
+
+
 //hero-info
 .hero-content {
     display: flex;
@@ -514,6 +530,21 @@ a {
         color: $grey;
         font-size: 18px;
     }
+}
+
+.comics-transition-enter {
+    opacity: 0;
+}
+.comics-transition-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+.comics-transition-exit {
+    opacity: 1;
+}
+.comics-transition-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
 }
 
 .single-comic {

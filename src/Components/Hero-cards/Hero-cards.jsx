@@ -3,6 +3,7 @@ import useMarvelService from "../services/MarvelServise";
 import ErrorMessage from "../Error-message/Error-message";
 import Spinner from "../Spinner/Spinner";
 import PropTypes from 'prop-types';
+import {CSSTransition, TransitionGroup} from 'react-transition-group'
 import "../../styles/style.scss";
 
 function HeroCards (props) {
@@ -52,17 +53,18 @@ function HeroCards (props) {
 
     const elements = data.map((item, i) => {
         return (
-            <div 
-                className='hero-card-container' 
-                onClick={() => {
-                                props.onHeroSelected(item.id);
-                                focusOnItem(i);
-                                }}
-                key={item.id}
-                ref={el => itemRefs.current[i] = el}>
-                <img src={item.thumbnail} alt={item.name} />
-                <p className='hero-card-name'>{item.name}</p>
-            </div>
+            <CSSTransition timeout={500} key={item.id} classNames="hero-transition" >
+                <div
+                    className='hero-card-container'
+                    onClick={() => {
+                                    props.onHeroSelected(item.id);
+                                    focusOnItem(i);
+                                    }}
+                    ref={el => itemRefs.current[i] = el}>
+                    <img src={item.thumbnail} alt={item.name} />
+                    <p className='hero-card-name'>{item.name}</p>
+                </div>
+            </CSSTransition>
         )
     })
     
@@ -71,7 +73,9 @@ function HeroCards (props) {
                         {spinner}
                         {errorMessage}
                     <ul>
-                        {elements}
+                        <TransitionGroup component={null}>
+                            {elements}
+                        </TransitionGroup>
                     </ul>
                     <button
                         onClick={() => onRequest(offset)}

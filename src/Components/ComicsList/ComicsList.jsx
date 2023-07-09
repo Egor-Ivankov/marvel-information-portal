@@ -3,6 +3,7 @@ import '../../styles/style.scss';
 import ErrorMessage from '../Error-message/Error-message';
 import Spinner from '../Spinner/Spinner';
 import useMarvelService from '../services/MarvelServise';
+import {CSSTransition, TransitionGroup} from 'react-transition-group'
 import { Link } from 'react-router-dom';
 
 
@@ -45,15 +46,17 @@ const ComicsList = () => {
             as an element index so that there are no errors in the console 
             with a repeated key. Marvel API has a large number of recurring comics
             */
-            <li className="comics-list-item"  key={i}>
-                <Link to={`/comics/${comics.id}`} element='#/'>
-                    <img src={comics.thumbnail} alt={comics.title} />
-                    <div className="comics-list-item-text">
-                        <h2>{comics.title}</h2>
-                        <p>{comics.price}</p>
-                    </div>
-                </Link>
-            </li>
+            <CSSTransition timeout={500} classNames='comics-transition' key={i}>
+                <li className="comics-list-item" >
+                    <Link to={`/comics/${comics.id}`} element='#/'>
+                        <img src={comics.thumbnail} alt={comics.title} />
+                        <div className="comics-list-item-text">
+                            <h2>{comics.title}</h2>
+                            <p>{comics.price}</p>
+                        </div>
+                    </Link>
+                </li>
+            </CSSTransition>
         )
     })
 
@@ -65,7 +68,9 @@ const ComicsList = () => {
                 {spinner}
                 {errorMessage}
             <ul className='comics-list'>
-                {elements}
+                <TransitionGroup component={null}>
+                    {elements}
+                </TransitionGroup>
             </ul>
             <button className='button-main button-main-long'
                     style={{'display': comicsEnded ? 'none' : 'block'}}

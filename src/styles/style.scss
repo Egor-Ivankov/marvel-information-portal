@@ -23,7 +23,8 @@ body {
 .bg-decoration {
     position: absolute;
     right: -174px;
-    bottom: -70px;
+    bottom: -90px;
+    z-index: -5;
 }
 
 .Header {
@@ -303,9 +304,10 @@ a {
 
 //hero-info
 .hero-content {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 650px 425px;
+    column-gap: 25px;
+    align-items: start;
     margin-top: 50px;
 }
 
@@ -418,7 +420,7 @@ a {
             height: 35px;
             width: 100%;
             background-color: #C4C4C4;
-            margin-top: 15px;
+            margin-top: 20px;
         }
     }
 
@@ -599,4 +601,49 @@ a {
     .link:hover {
             transform: translateY(-8%);
     }
+}
+
+.search-hero {  
+    width: 425px;
+    align-items: center;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+    margin-top: 30px;
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        padding: 20px 0;
+    }
+
+    &-btn {
+        @extend .button-main;
+        width: 70px;
+        height: 32px;
+        margin: 0;
+    }
+
+    &-input {
+        width: 70%;
+        height: 32px;
+        margin-inline: 20px;
+        padding: 0 10px;
+        border: none;
+        background: #FFFFFF;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        font-size: 14px;
+    }
+
+    &-label {
+        display: block;
+        margin-left: 20px;
+        padding-top: 5%;
+        font-weight: bold;
+        color: $dark;
+        line-height: 22px;
+        font-size: 18px;
+    }
+}
+.single-hero {
+    @extend .comics-list-item-text;
 }

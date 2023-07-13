@@ -6,6 +6,8 @@ import Spinner from "../Components/Spinner/Spinner";
 const MainPage = lazy(() => import('../Components/pages/MainPage')); 
 const ComicsPage = lazy(() => import('../Components/pages/ComicsPage')); 
 const SingleComicPage = lazy(() => import('../Components/pages/SingleComicPage'));
+// eslint-disable-next-line
+const SingleHeroPage = lazy(() => import('../Components/pages/SingleHeroPage'));
 const Page404 = lazy(() => import('../Components/pages/404')); 
 
 export default function App () {    

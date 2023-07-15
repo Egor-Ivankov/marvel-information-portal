@@ -1,4 +1,4 @@
-import React, { lazy, Suspense} from "react";
+import React, { lazy, Suspense, useState, useCallback} from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from '../Components/Header/Header';
 import Spinner from "../Components/Spinner/Spinner";
@@ -6,11 +6,16 @@ import Spinner from "../Components/Spinner/Spinner";
 const MainPage = lazy(() => import('../Components/pages/MainPage')); 
 const ComicsPage = lazy(() => import('../Components/pages/ComicsPage')); 
 const SingleComicPage = lazy(() => import('../Components/pages/SingleComicPage'));
-// eslint-disable-next-line
 const SingleHeroPage = lazy(() => import('../Components/pages/SingleHeroPage'));
 const Page404 = lazy(() => import('../Components/pages/404')); 
 
 export default function App () {    
+    const [hero, setHero] = useState(null);
+
+    const getHeroApp = useCallback((hero) => {
+        setHero(hero);
+        // eslint-disable-next-line
+    }, [hero]);
 
     return (
         <Router>
@@ -19,9 +24,10 @@ export default function App () {
                 <main>
                     <Suspense fallback={<Spinner/>}>
                         <Routes>
-                            <Route path="/" element={<MainPage />}/>
+                            <Route path="/" element={<MainPage getHeroApp={getHeroApp} />}/>
                             <Route path="/comics" element={<ComicsPage />}/>
                             <Route path="/comics/:comicId" element={<SingleComicPage/> }/>
+                            <Route path="/characters/:id" element={<SingleHeroPage hero={hero}/>}/>
                             <Route path="*" element={<Page404 />}/>
                         </Routes>
                     </Suspense>

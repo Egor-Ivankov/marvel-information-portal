@@ -609,11 +609,15 @@ a {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
     background-color: #fff;
     margin-top: 30px;
+    padding-right: 20px;
+    min-height: 125px;
 
     .container {
         display: flex;
         flex-direction: row;
-        padding: 20px 0;
+        justify-content: space-between;
+        align-items: center;
+        margin: 25px 0 0 20px;
     }
 
     &-btn {
@@ -626,7 +630,6 @@ a {
     &-input {
         width: 70%;
         height: 32px;
-        margin-inline: 20px;
         padding: 0 10px;
         border: none;
         background: #FFFFFF;
@@ -643,7 +646,64 @@ a {
         line-height: 22px;
         font-size: 18px;
     }
+
+    &-wrapper {
+        @extend .container;
+        padding-bottom: 25px;
+    }
+
+    &-error {
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 24px;
+        color: $main-color;
+        padding: 25px 0 15px 0;
+        margin-left: 20px;
+    }
+
+    &-critical-error {
+        padding: 30px 110px 30px 0;
+    }
+
+    &-success {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 24px;
+        color: #03710E;
+    }
+
+
+
+    .button-secondary {
+        width: 70px;
+        height: 32px;
+        margin: 0;
+    }
 }
 .single-hero {
+    display: flex;
+    flex-direction: row;
+
     @extend .comics-list-item-text;
+    img {
+        width: 400px;
+        border-radius: 10px;
+        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.316);
+        margin: 50px 150px 0 0;
+    }
+
+    .text {
+        margin: 50px 0 0 0;
+
+        h2 {
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 18px;
+            color: $grey;
+            padding-top: 30px;
+        }
+    }
 }
+

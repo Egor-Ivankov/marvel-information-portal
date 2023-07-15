@@ -2,11 +2,11 @@ import React from 'react';
 import SingleHero from '../Single-hero/SingleHero';
 import AppBanner from '../App-banner/AppBanner';
 
-const SingleHeroPage = () => {
+const SingleHeroPage = ({hero}) => {
     return (
         <>
             <AppBanner/>
-            <SingleHero/>
+            <SingleHero hero={hero}/>
         </>
     );
 }

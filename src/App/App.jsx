@@ -1,33 +1,28 @@
-import React, { lazy, Suspense, useState, useCallback} from "react";
+import React, { lazy, Suspense} from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from '../Components/Header/Header';
 import Spinner from "../Components/Spinner/Spinner";
 
 const MainPage = lazy(() => import('../Components/pages/MainPage')); 
 const ComicsPage = lazy(() => import('../Components/pages/ComicsPage')); 
-const SingleComicPage = lazy(() => import('../Components/pages/SingleComicPage'));
-const SingleHeroPage = lazy(() => import('../Components/pages/SingleHeroPage'));
 const Page404 = lazy(() => import('../Components/pages/404')); 
+const SinglePage = lazy(() => import('../Components/pages/SinglePage'));
+const SingleComicLayout = lazy(() => import('../Components/pages/layout/SingleComicLayout'));
+const SingleHeroLayout = lazy(() => import('../Components/pages/layout/SingleHeroLayout'));
 
 export default function App () {    
-    const [hero, setHero] = useState(null);
-
-    const getHeroApp = useCallback((hero) => {
-        setHero(hero);
-        // eslint-disable-next-line
-    }, [hero]);
 
     return (
         <Router>
             <div className="App">
             <Header/>
                 <main>
-                    <Suspense fallback={<Spinner/>}>
+                    <Suspense fallback={<Spinner />}>
                         <Routes>
-                            <Route path="/" element={<MainPage getHeroApp={getHeroApp} />}/>
+                            <Route path="/" element={<MainPage />}/>
                             <Route path="/comics" element={<ComicsPage />}/>
-                            <Route path="/comics/:comicId" element={<SingleComicPage/> }/>
-                            <Route path="/characters/:id" element={<SingleHeroPage hero={hero}/>}/>
+                            <Route path="comics/:id" element={<SinglePage Component={SingleComicLayout} dataType={'comics'} />}/>
+                            <Route path="hero/:id" element={<SinglePage Component={SingleHeroLayout} dataType={'hero'} />}/>
                             <Route path="*" element={<Page404 />}/>
                         </Routes>
                     </Suspense>

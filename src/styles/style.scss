@@ -552,6 +552,7 @@ a {
 .single-comic {
     display: flex;
     justify-content: space-between;
+    padding-top: 50px;
 
     img{
         width: 290px;
@@ -625,6 +626,10 @@ a {
         width: 70px;
         height: 32px;
         margin: 0;
+    }
+
+    &-btn:disabled {
+        filter: grayscale(50%);
     }
 
     &-input {

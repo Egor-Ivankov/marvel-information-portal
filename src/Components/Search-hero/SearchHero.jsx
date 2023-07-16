@@ -5,20 +5,19 @@ import ErrorMessage from '../Error-message/Error-message';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
-const SearchHero = ({getHero}) => {
+const SearchHero = () => {
     const [hero, setHero] = useState(null);
     const {loading, error, clearError, getHeroByName} = useMarvelService();
 
     const onHeroLoaded = (hero) => {
         setHero(hero);
-        getHero(hero);
     }
 
     const updateHero = (name) => {
 
         clearError();
 
-        getHeroByName(name)
+        getHeroByName(name.trim())
             .then(onHeroLoaded)
     }
 
@@ -36,7 +35,7 @@ const SearchHero = ({getHero}) => {
                                 <div className="search-hero-wrapper">
                                 <div className="search-hero-success">There is! Visit {hero[0].name} page?</div>
                                 <Link 
-                                    to={`/characters/${hero[0].id}`} 
+                                    to={`/hero/${hero[0].id}`} 
                                     className="button-secondary"
                                     >
                                     <div>To page</div>
@@ -58,6 +57,7 @@ const SearchHero = ({getHero}) => {
                     heroName: Yup.string()
                                     .required('This field is required')
                                     .max(30, 'No more than 30 characters')
+                                    .min(2, 'At least two characters')
                 })}
 
                 onSubmit = { ({heroName}) => {
@@ -74,13 +74,21 @@ const SearchHero = ({getHero}) => {
                             type='text'
                             className="search-hero-input"
                             placeholder="Enter name"
-                            disabled={loading}
+                            
                         />
-                        <button className="search-hero-btn" type="submit">find</button> 
+                        <button className="search-hero-btn" 
+                                type="submit" 
+                                disabled={loading}
+                                >find</button> 
                     </div>
                         {results}
                         {errorMessage}
-                    <FormikErrorMessage component="div" className="search-hero-error" name="heroName" />
+                        
+                    <FormikErrorMessage 
+                        component="div" 
+                        className="search-hero-error" 
+                        name="heroName" 
+                        />
                 </Form>
             </Formik>
         </>

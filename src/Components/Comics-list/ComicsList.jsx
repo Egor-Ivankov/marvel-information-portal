@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import '../../styles/style.scss';
 import ErrorMessage from '../Error-message/Error-message';
 import Spinner from '../Spinner/Spinner';
 import useMarvelService from '../services/MarvelServise';
 import {CSSTransition, TransitionGroup} from 'react-transition-group'
 import { Link } from 'react-router-dom';
+import '../../styles/style.scss';
 
 
 const ComicsList = () => {
@@ -65,8 +65,8 @@ const ComicsList = () => {
 
     return (
         <>
-                {spinner}
-                {errorMessage}
+            {spinner}
+            {errorMessage}
             <ul className='comics-list'>
                 <TransitionGroup component={null}>
                     {elements}

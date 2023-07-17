@@ -5,6 +5,7 @@ import SearchHero from '../Search-hero/SearchHero';
 import Spinner from '../Spinner/Spinner';
 import ErrorBoundary from "../Error-boundary/ErrorBoundary";
 import vision from "../../img/vision.png";
+import { Helmet } from 'react-helmet';
 
 const HeroInfo = lazy(() => import('../Hero-info/Hero-info'));
 
@@ -18,6 +19,10 @@ const MainPage = () => {
 
     return (
         <>
+            <Helmet>
+                <meta name="description" content="Marvel information portal"/>
+                <title>Marvel information portal</title>
+            </Helmet>
             <ErrorBoundary>
                 <HeroBlockDescr/>
             </ErrorBoundary>

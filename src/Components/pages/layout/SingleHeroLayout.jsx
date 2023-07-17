@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 export default function SingleHeroLayout ({data}) {
 
     const { name,
@@ -6,6 +7,10 @@ export default function SingleHeroLayout ({data}) {
 
     return (
         <>
+            <Helmet>
+                <meta name="description" content={`Page about: ${name}`}/>
+                <title>{name}</title>
+            </Helmet>
             <div className='single-hero'>
                 <img src={thumbnail} alt={name} />
                 <div className="text">

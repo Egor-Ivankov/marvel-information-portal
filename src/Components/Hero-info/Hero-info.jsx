@@ -9,7 +9,7 @@ import "../../styles/style.scss";
 
 function HeroInfo (props) {
 	const [data, setData] = useState(null);
-	const {loading, error, clearError,getHero} = useMarvelService();
+	const {process, setProcess, clearError, getHero} = useMarvelService();
 
 	useEffect(() => {
 		updateHero();
@@ -27,23 +27,31 @@ function HeroInfo (props) {
 
 		getHero(heroId)
 			.then(onDataLoaded)
+			.then(() => setProcess('complete'))
 	}
 
 	const onDataLoaded = (data) => {
         setData(data);
     }
 
-	const skeleton = data || loading || error ? null : <HeroSceleton/>;
-	const errorMessage = error ? <ErrorMessage/> : null;
-	const spinner = loading ? <Spinner/> : null;
-	const content = !(loading || error || !data) ? <View data={data}/> : null;
+	const setContent = (process, data) => {
+		switch(process) {
+			case "waiting": 
+				return <HeroSceleton/> 
+			case "loading": 
+				return <Spinner/>
+			case "complete": 
+				return <View data={data}/>
+			case "error": 
+				return <ErrorMessage/>
+			default:
+				throw new Error ('get unexpected process')
+		}
+	}
 
 	return (
 		<div className='hero-info'>
-				{skeleton}
-				{errorMessage}
-				{spinner}
-				{content}
+				{setContent(process, data)}
 		</div>
 	)
 }

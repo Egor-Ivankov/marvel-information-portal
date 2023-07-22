@@ -214,11 +214,10 @@ a {
 
 //Spinner 
 .spinner {
-    height: 184px;
+    height: 239px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: translateY(20%);
 
     .loader-svg {
         fill: none;
@@ -363,7 +362,6 @@ a {
     display: grid;
     grid-template-columns: 150px auto;
     column-gap: 25px;
-
     img {
         width: 150px;
         height: 150px;

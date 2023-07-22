@@ -1,7 +1,7 @@
 import { useHttp } from "../../hooks/http.hook";
 
-const  useMarvelService = () => {
-    const {loading, request, error, clearError} = useHttp();
+const useMarvelService = () => {
+    const { loading, request, error, clearError, process, setProcess } = useHttp();
 
     const _apiBase = 'https://gateway.marvel.com:443/v1/public/';
     const _apiKey = 'apikey=1dc04fc2716d2c109950006f6390093a';
@@ -17,9 +17,9 @@ const  useMarvelService = () => {
         return _transformHero(res.data.results[0]);
     }
     const getHeroByName = async (name) => {
-		const res = await request(`${_apiBase}characters?name=${name}&${_apiKey}`);
-		return res.data.results.map(_transformHero);
-	};
+        const res = await request(`${_apiBase}characters?name=${name}&${_apiKey}`);
+        return res.data.results.map(_transformHero);
+    };
 
     const _transformHero = (hero) => {
         return {
@@ -29,23 +29,23 @@ const  useMarvelService = () => {
             homepage: hero.urls[0].url,
             wiki: hero.urls[1].url,
             id: hero.id,
-            comics: hero.comics.items,  
+            comics: hero.comics.items,
         }
     }
 
     const _transformComics = (comics) => {
         return {
             id: comics.id,
-			title: comics.title,
-			description: comics.description || "There is no description",
-			pageCount: comics.pageCount
-				? `${comics.pageCount} p.`
-				: "No information about the number of pages",
-			thumbnail: comics.thumbnail.path + "." + comics.thumbnail.extension,
-			language: comics.textObjects[0]?.language || "en-us",
-			price: comics.prices[0].price
-				? `${comics.prices[0].price}$`
-				: "not available",
+            title: comics.title,
+            description: comics.description || "There is no description",
+            pageCount: comics.pageCount
+                ? `${comics.pageCount} p.`
+                : "No information about the number of pages",
+            thumbnail: comics.thumbnail.path + "." + comics.thumbnail.extension,
+            language: comics.textObjects[0]?.language || "en-us",
+            price: comics.prices[0].price
+                ? `${comics.prices[0].price}$`
+                : "not available",
         }
     }
 
@@ -59,6 +59,17 @@ const  useMarvelService = () => {
         return _transformComics(res.data.results[0]);
     }
 
-    return {loading, error, clearError, getAllHeroes, getHero, getAllComics, getComics, getHeroByName}
+    return {
+        loading,
+        error,
+        clearError,
+        process,
+        setProcess,
+        getAllHeroes,
+        getHero,
+        getAllComics,
+        getComics,
+        getHeroByName
+    }
 }
 export default useMarvelService;

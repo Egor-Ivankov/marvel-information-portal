@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from "react";
 import useMarvelService from "../services/MarvelServise";
-import Spinner from "../Spinner/Spinner";
-import ErrorMessage from "../Error-message/Error-message";
+import setContent from '../../utils/setContent';
 import PropTypes from 'prop-types';
-import HeroSceleton from '../Hero-skeleton/Hero-sceleton';
 import { Link } from "react-router-dom";
 import "../../styles/style.scss";
 
@@ -34,24 +32,9 @@ function HeroInfo (props) {
         setData(data);
     }
 
-	const setContent = (process, data) => {
-		switch(process) {
-			case "waiting": 
-				return <HeroSceleton/> 
-			case "loading": 
-				return <Spinner/>
-			case "complete": 
-				return <View data={data}/>
-			case "error": 
-				return <ErrorMessage/>
-			default:
-				throw new Error ('get unexpected process')
-		}
-	}
-
 	return (
 		<div className='hero-info'>
-				{setContent(process, data)}
+				{setContent(process, View, data)}
 		</div>
 	)
 }

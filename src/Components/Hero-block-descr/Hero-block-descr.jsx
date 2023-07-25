@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from "react";
 import "../../styles/style.scss";
 import useMarvelService from "../services/MarvelServise";
+import setContent from "../../utils/setContent";
 import mjolnir from "../../img/mjolnir.png";
-import Spinner from "../Spinner/Spinner";
-import ErrorMessage from "../Error-message/Error-message";
 
 function HeroBlockDescr () {
     const [hero, setHero] = useState({});
 
-    const {loading, error, getHero, clearError} = useMarvelService();
+    const {process, setProcess, getHero, clearError} = useMarvelService();
 
     useEffect(() => {
         updateHero();
@@ -30,17 +29,13 @@ function HeroBlockDescr () {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
         getHero(id)
             .then(onHeroLoaded)
+            .then(() => setProcess('complete'))
     }
 
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error) ? <View hero={hero}/> : null;
 
     return (
         <div className='hero-block-container'>
-            {errorMessage} 
-            {spinner}
-            {content}
+            {setContent(process, View, hero)}
             <div className='hero-block-static'>
             <p>
                 Random character for today! <br/>
@@ -56,7 +51,7 @@ function HeroBlockDescr () {
     )
 }
 
-const View = ({hero}) => {
+const View = ({data}) => {
 
     const checkDescr = (descr) => {
         if (descr === "") {
@@ -66,7 +61,7 @@ const View = ({hero}) => {
         }
     }
 
-    const {name, description, thumbnail, homepage, wiki} = hero;
+    const {name, description, thumbnail, homepage, wiki} = data;
     const checkedDescription = checkDescr(description);
 
     return (

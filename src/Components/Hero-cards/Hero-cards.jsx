@@ -45,7 +45,6 @@ function HeroCards (props) {
     const focusOnItem = (id) => {
         itemRefs.current.forEach(item => item.classList.remove('hero-card-container-selected'));
         itemRefs.current[id].classList.add('hero-card-container-selected');
-        itemRefs.current[id].focus();
     }
 
     const errorMessage = error ? <ErrorMessage/> : null;
@@ -54,7 +53,7 @@ function HeroCards (props) {
     const elements = data.map((item, i) => {
         return (
             <CSSTransition timeout={500} key={item.id} classNames="hero-transition" >
-                <div
+                <li
                     className='hero-card-container'
                     onClick={() => {
                                     props.onHeroSelected(item.id);
@@ -63,7 +62,7 @@ function HeroCards (props) {
                     ref={el => itemRefs.current[i] = el}>
                     <img src={item.thumbnail} alt={item.name} />
                     <p className='hero-card-name'>{item.name}</p>
-                </div>
+                </li>
             </CSSTransition>
         )
     })

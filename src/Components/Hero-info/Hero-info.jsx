@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import useMarvelService from "../services/MarvelServise";
-import setContent from '../../utils/setContent';
+import {setContent} from '../../utils/setContent';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import "../../styles/style.scss";
@@ -73,7 +73,7 @@ const View = ({data}) => {
 				{comics.length > 0 ? null : <div style={{'fontSize': '14px', 'paddingTop': '10px'}}>There is no comics with this character</div>}
 				{
 
-					comics.map((item, i) => {
+					comics.map(item => {
 						return (
 							<Link to={`comics/${item.resourceURI.replace(/[^0-9]/g,"").slice(1)}`} 
 								className="comics-item"

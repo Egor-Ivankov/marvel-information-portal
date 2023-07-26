@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import useMarvelService from '../services/MarvelServise';
-import setContent from "../../utils/setContent";
+import {setContent} from "../../utils/setContent";
 
 import AppBanner from '../App-banner/AppBanner';
 

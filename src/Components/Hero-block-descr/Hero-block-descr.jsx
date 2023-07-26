@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import "../../styles/style.scss";
 import useMarvelService from "../services/MarvelServise";
-import setContent from "../../utils/setContent";
+import {setContent} from "../../utils/setContent";
 import mjolnir from "../../img/mjolnir.png";
 
 function HeroBlockDescr () {

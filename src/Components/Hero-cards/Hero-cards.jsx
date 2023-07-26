@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import useMarvelService from "../services/MarvelServise";
-import ErrorMessage from "../Error-message/Error-message";
-import Spinner from "../Spinner/Spinner";
+import {setContentList} from "../../utils/setContent";
 import PropTypes from 'prop-types';
 import {CSSTransition, TransitionGroup} from 'react-transition-group'
 import "../../styles/style.scss";
@@ -12,7 +11,7 @@ function HeroCards (props) {
     const [newItemLoading, setNewItemLoading] = useState(false);
     const [offset, setOffset] = useState(210);
     const [heroEnded, setHeroEnded] = useState(false);
-    const {loading, error, getAllHeroes} = useMarvelService();
+    const {process, setProcess, getAllHeroes} = useMarvelService();
 
     useEffect(() => {
         onRequest(offset, true);
@@ -23,6 +22,7 @@ function HeroCards (props) {
         initial ? setNewItemLoading(false) : setNewItemLoading(true);
         getAllHeroes(offset)
             .then(onDataLoaded)
+            .then(() => setProcess('complete'))
     }
 
     const onDataLoaded = (newData) => {
@@ -47,35 +47,35 @@ function HeroCards (props) {
         itemRefs.current[id].classList.add('hero-card-container-selected');
     }
 
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading && !newItemLoading ? <Spinner/> : null;
-
-    const elements = data.map((item, i) => {
+    const renderItems = (arr) => {
+        const items = arr.map((item, i) => {
+            return (
+                <CSSTransition timeout={500} key={item.id} classNames="hero-transition" >
+                    <li
+                        className='hero-card-container'
+                        ref={el => itemRefs.current[i] = el}
+                        onClick={() => {
+                                        props.onHeroSelected(item.id);
+                                        focusOnItem(i);
+                                        }}>
+                        <img src={item.thumbnail} alt={item.name} />
+                        <p className='hero-card-name'>{item.name}</p>
+                    </li>
+                </CSSTransition>
+            )
+        })
         return (
-            <CSSTransition timeout={500} key={item.id} classNames="hero-transition" >
-                <li
-                    className='hero-card-container'
-                    onClick={() => {
-                                    props.onHeroSelected(item.id);
-                                    focusOnItem(i);
-                                    }}
-                    ref={el => itemRefs.current[i] = el}>
-                    <img src={item.thumbnail} alt={item.name} />
-                    <p className='hero-card-name'>{item.name}</p>
-                </li>
-            </CSSTransition>
+            <ul>
+                <TransitionGroup component={null}>
+                    {items}
+                </TransitionGroup>
+            </ul>
         )
-    })
+    } 
     
     return (
                 <div className='hero-cards'>
-                        {spinner}
-                        {errorMessage}
-                    <ul>
-                        <TransitionGroup component={null}>
-                            {elements}
-                        </TransitionGroup>
-                    </ul>
+                        {setContentList(process, () => renderItems(data), newItemLoading)}
                     <button
                         onClick={() => onRequest(offset)}
                         disabled={newItemLoading}

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import {Formik, Form, Field, ErrorMessage as FormikErrorMessage} from 'formik';
 import useMarvelService from '../services/MarvelServise';
-import ErrorMessage from '../Error-message/Error-message';
+import {setContentSearch} from "../../utils/setContent";
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 const SearchHero = () => {
     const [hero, setHero] = useState(null);
-    const {loading, error, clearError, getHeroByName} = useMarvelService();
+    const {process, setProcess, clearError, getHeroByName} = useMarvelService();
 
     const onHeroLoaded = (hero) => {
         setHero(hero);
@@ -19,16 +19,19 @@ const SearchHero = () => {
 
         getHeroByName(name.trim())
             .then(onHeroLoaded)
+            .then(() => setProcess('complete'))
     }
 
-    const errorMessage = error 
-    ? 
-    <div className='search-hero-critical-error'>
-        <ErrorMessage/>
-    </div> 
-    : null;
+    // const errorMessage = error 
+    // ? 
+    // <div className='search-hero-critical-error'>
+    //     <ErrorMessage/>
+    // </div> 
+    // : null;
 
-    const results = !hero 
+    const renderItem = () => {
+        return (
+            !hero 
                         ? null
                         : hero.length > 0 
                             ?  
@@ -44,7 +47,9 @@ const SearchHero = () => {
                             : 
                                 <div className="search-hero-error">
                                     The character was not found. Check the name and try again
-                                </div>;
+                                </div>
+        )
+    }
 
     return (
         <>
@@ -78,12 +83,10 @@ const SearchHero = () => {
                         />
                         <button className="search-hero-btn" 
                                 type="submit" 
-                                disabled={loading}
+                                disabled={process === 'loading' ? true : false}
                                 >find</button> 
                     </div>
-                        {results}
-                        {errorMessage}
-                        
+                        {setContentSearch(process,() => renderItem())}
                     <FormikErrorMessage 
                         component="div" 
                         className="search-hero-error" 

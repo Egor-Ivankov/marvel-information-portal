@@ -22,13 +22,6 @@ const SearchHero = () => {
             .then(() => setProcess('complete'))
     }
 
-    // const errorMessage = error 
-    // ? 
-    // <div className='search-hero-critical-error'>
-    //     <ErrorMessage/>
-    // </div> 
-    // : null;
-
     const renderItem = () => {
         return (
             !hero 
@@ -61,7 +54,7 @@ const SearchHero = () => {
                 validationSchema = {Yup.object({
                     heroName: Yup.string()
                                     .required('This field is required')
-                                    .max(30, 'No more than 30 characters')
+                                    .max(35, 'No more than 35 characters')
                                     .min(2, 'At least two characters')
                 })}
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import useMarvelService from "../services/MarvelServise";
 import {setContentList} from "../../utils/setContent";
 import PropTypes from 'prop-types';
@@ -72,10 +72,13 @@ function HeroCards (props) {
             </ul>
         )
     } 
-    
+
+    // eslint-disable-next-line
+    const elements = useMemo(() => setContentList(process, () => renderItems(data), newItemLoading), [process]);
+
     return (
                 <div className='hero-cards'>
-                        {setContentList(process, () => renderItems(data), newItemLoading)}
+                        {elements}
                     <button
                         onClick={() => onRequest(offset)}
                         disabled={newItemLoading}

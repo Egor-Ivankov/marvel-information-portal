@@ -15,6 +15,15 @@ DevDescription:
  
  Source providing a database of heroes and comics: https://developer.marvel.com/
 
+![main-page](https://github.com/Egor-Ivankov/marvel-app/blob/main/src/img/scrinshots/marvel-portal.png)
+
+![comics-page](https://github.com/Egor-Ivankov/marvel-app/blob/main/src/img/scrinshots/comics-page.png)
+
+![single-hero-page](https://github.com/Egor-Ivankov/marvel-app/blob/main/src/img/scrinshots/single-hero-page.png)
+
+![single-comic-page](https://github.com/Egor-Ivankov/marvel-app/blob/main/src/img/scrinshots/single-comic-page.png)
+
+
 For use:        
 ### `git clone https://github.com/Egor-Ivankov/marvel-app.git`     
 ### `npm install` 
